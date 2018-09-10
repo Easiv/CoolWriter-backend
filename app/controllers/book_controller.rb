@@ -1,2 +1,3 @@
-class BookController < ApplicationController
+class BookController < JSONAPI::ResourceController
 end
+  
