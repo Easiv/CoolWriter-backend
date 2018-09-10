@@ -35,6 +35,8 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'shoulda-matchers', '~> 3.1'
+  gem 'factory_bot_rails'
+  gem 'ffaker'
   
 end
 
