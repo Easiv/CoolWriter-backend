@@ -43,6 +43,7 @@ group :development do
 end
 
 group :test do
+  gem 'rspec_junit_formatter'
   gem 'database_cleaner'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'rspec-rails'
