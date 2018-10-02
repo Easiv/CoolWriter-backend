@@ -5,5 +5,9 @@ FactoryBot.define do
     author { FFaker::Book.author }
     description { FFaker::Book.description }
     page_count { (1..500).to_a.sample }
+
+    after(:create) do |book|
+      create(:page, book: book)
+    end
   end
 end

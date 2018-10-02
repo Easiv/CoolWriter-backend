@@ -1,4 +1,5 @@
 class Page < ApplicationRecord
+
   belongs_to :book
   validates :book, presence: true
 
