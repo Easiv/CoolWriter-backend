@@ -25,4 +25,3 @@ production:
   database: coolwriter-backend_production
   username: coolwriter-backend
   password: <%= ENV['COOLWRITER-BACKEND_DATABASE_PASSWORD'] %>
-

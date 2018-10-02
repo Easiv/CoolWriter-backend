@@ -1,7 +1,9 @@
 require 'rails_helper'
 
-describe Book, type: :model do
-  it 'passes' do
-    expect(true)
+RSpec.describe Book, type: :model do
+  
+  it 'has the author name from factory' do
+    book = create(:book)
+    expect(book.author).to be_a(String)
   end
 end
