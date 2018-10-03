@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Book, type: :model do
-  
   it 'has only 1 book at the time in test' do
     book = create(:book)
     expect(Book.count).to eq(1)
