@@ -26,9 +26,8 @@ RSpec.describe Book, type: :model do
 
   it 'books should have uniq titles' do
     book = create(:book, title: 'Hello World', author: 'XXX' )
-    new_book = build(:book, title: 'Hello World', author: 'XXX')
+    duplicate = build(:book, title: 'Hello World', author: 'XXX')
 
-    expect(new_book.valid?).to be_falsey
+    expect(duplicate.valid?).to be_falsey
   end
-    
 end
