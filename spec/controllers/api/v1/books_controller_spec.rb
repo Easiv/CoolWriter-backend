@@ -20,4 +20,23 @@ describe Api::V1::BooksController, type: :controller do
       expect(formatted_book['data']['id']).to eq(book.id.to_s)
     end
   end
+
+  describe 'create' do
+    subject { post :create,
+      params: { 
+        data: { type: 'books',
+          attributes: { 
+            author: 'aaa', title: 'bbbbb' 
+          } 
+        } 
+      } 
+    }
+    it 'maybe creates book' do
+      expect(subject.body).to include('bbbbb')
+    end
+  end
+
+  before do
+    request.headers['Content-Type'] = 'application/vnd.api+json'
+  end
 end
