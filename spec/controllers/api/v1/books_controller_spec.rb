@@ -6,7 +6,7 @@ describe Api::V1::BooksController, type: :controller do
   describe 'index' do
     subject { get :index }
 
-    it 'returns json' do
+    it 'checks if there is actually only one book' do
       body = JSON.parse(subject.body)
       expect(body.length).to eq(1)
     end
@@ -40,11 +40,20 @@ describe Api::V1::BooksController, type: :controller do
 
     subject { post :create, params: book_params }
 
-    it 'maybe creates book' do
+    it 'creates book with specific params' do
       formatted_book = JSON.parse(subject.body)
-      binding.pry
+
       expect(formatted_book['data']['attributes']['author']).to eq('aaa')
       expect(formatted_book['data']['attributes']['title']).to eq('bbbbb')
+    end
+  end
+
+  describe 'update' do
+    let(:nil_book) { create(:book, description: 'nothing') }
+    subject { patch :update, params: { description: 'something' } }
+    it 'updates description of the book' do
+      subject
+      binding.pry
     end
   end
 end
