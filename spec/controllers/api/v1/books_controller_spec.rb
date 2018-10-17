@@ -71,4 +71,13 @@ describe Api::V1::BooksController, type: :controller do
       expect(nothing_book.reload.description).to eq('something');
     end
   end
+
+  describe 'destroy' do
+    let!(:boocc) { create(:book) }
+    subject { delete :destroy, params: { id: boocc.id } }
+    
+    it 'removes the book' do
+      expect { subject }.to change(Book, :count).by(-1)
+    end
+  end
 end
