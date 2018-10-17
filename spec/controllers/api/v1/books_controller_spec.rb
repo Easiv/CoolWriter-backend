@@ -49,11 +49,26 @@ describe Api::V1::BooksController, type: :controller do
   end
 
   describe 'update' do
-    let(:nil_book) { create(:book, description: 'nothing') }
-    subject { patch :update, params: { description: 'something' } }
+    let(:nothing_book) { create(:book, description: 'nothing') }
+    let(:book_params) do
+      { 
+        id: nothing_book.id,
+        type: 'books',
+        attributes: { 
+          description: 'something'
+        }
+      } 
+    end
+
+    before do
+      request.headers['Content-Type'] = 'application/vnd.api+json'
+    end
+
+    subject { patch :update, params: { id: nothing_book.id, data: book_params } }
+
     it 'updates description of the book' do
       subject
-      binding.pry
+      expect(nothing_book.reload.description).to eq('something');
     end
   end
 end
