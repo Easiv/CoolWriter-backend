@@ -23,24 +23,28 @@ describe Api::V1::PagesController, type: :controller do
   end
 
   describe 'create' do
-    let!(:book) { create(:book) }
+    let(:body) { JSON.parse(subject.body) }
     let(:page_params) do
       { 
         data: {
           type: 'pages',
-          attributes: { 
+          attributes: {
             content: 'abcdefghijkl'
           },
           relationships: {
-            book: { 
+            book: {
               data: {
                 id: book.id,
                 type: 'books'
               }
             }
           }
-        } 
-      } 
+        }
+      }
+    end
+
+    it 'has 2 pages' do
+      expect(book.pages.length).to eq(2)
     end
     
     before do
@@ -48,8 +52,43 @@ describe Api::V1::PagesController, type: :controller do
     end
 
     subject { post :create, params: page_params }
-    it 'returns something' do
-      
+
+    it 'added a third page' do
+      subject
+      expect(book.pages.length).to eq(3)
+    end
+  end
+
+  describe 'update' do
+    let(:body) { JSON.parse(subject.body) }
+    let(:page_params) do
+      {
+          id: page.id,
+          attributes: {
+            content: 'abcdefghijkl'
+          },
+          type: 'pages'
+      }
+    end
+
+    before do
+      request.headers['Content-Type'] = 'application/vnd.api+json'
+    end
+
+    subject { patch :update, params: { id: page.id, data: page_params } }
+
+    it 'should update the content' do
+      subject
+      expect(body['data']['attributes']['content']).to eq(page.reload.content)
+    end
+  end
+
+  describe 'destroy' do
+    let!(:pag) { create(:page, book: book) }
+    subject { delete :destroy, params: { id: pag.id } }
+
+    it 'removes the pag' do
+      expect { subject }.to change(Page, :count).by(-1)
     end
   end
 end
