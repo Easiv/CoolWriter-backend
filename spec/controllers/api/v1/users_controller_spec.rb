@@ -4,11 +4,10 @@ describe Api::V1::UsersController, type: :controller do
   let!(:user) { create(:user) }
   let(:body) { JSON.parse(subject.body) }
 
-
   describe 'index' do
     subject { get :index }
 
-    it 'checcs if there is a user' do
+    it 'checks if there is a user' do
       expect(body.length).to eq(1)
     end
   end
@@ -53,7 +52,7 @@ describe Api::V1::UsersController, type: :controller do
           type: 'users',
           attributes: {
             name: 'luuuul',
-            email: 'ciamciaramcia@dupa.pl'
+            email: 'ciamciaramcia@pupa.pl'
           }
         }
       end
@@ -63,18 +62,17 @@ describe Api::V1::UsersController, type: :controller do
       end
 
       subject { patch :update, params: { id: user.id, data: user_params } }
-      it 'passes' do
+      it 'checks if attributes matches' do
         subject
         expect(user.reload.name).to eq('luuuul');
-        expect(user.reload.email).to eq('ciamciaramcia@dupa.pl');
+        expect(user.reload.email).to eq('ciamciaramcia@pupa.pl');
       end
     end
 
     describe 'destroy' do
-      let!(:juser) { create(:user) }
-      subject { delete :destroy, params: { id: juser.id } }
+      subject { delete :destroy, params: { id: user.id } }
 
-      it 'removes the juser' do
+      it 'removes the user' do
         expect { subject }.to change(User, :count).by(-1)
       end
     end

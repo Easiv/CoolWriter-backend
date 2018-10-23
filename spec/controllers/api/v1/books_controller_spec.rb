@@ -73,8 +73,7 @@ describe Api::V1::BooksController, type: :controller do
   end
 
   describe 'destroy' do
-    let!(:boocc) { create(:book) }
-    subject { delete :destroy, params: { id: boocc.id } }
+    subject { delete :destroy, params: { id: book.id } }
     
     it 'removes the book' do
       expect { subject }.to change(Book, :count).by(-1)

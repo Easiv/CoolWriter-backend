@@ -4,7 +4,6 @@ describe Api::V1::PagesController, type: :controller do
   let!(:book) { create(:book) }
   let!(:page) { create(:page, book: book) }
   let(:body) { JSON.parse(subject.body) }
-  #book by default is created with one page so expect having 2 now
 
   describe 'index' do 
     subject { get :index }
@@ -84,10 +83,9 @@ describe Api::V1::PagesController, type: :controller do
   end
 
   describe 'destroy' do
-    let!(:pag) { create(:page, book: book) }
-    subject { delete :destroy, params: { id: pag.id } }
+    subject { delete :destroy, params: { id: page.id } }
 
-    it 'removes the pag' do
+    it 'removes the page' do
       expect { subject }.to change(Page, :count).by(-1)
     end
   end
